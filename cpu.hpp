@@ -15,6 +15,11 @@ class Cpu
         
         bool drawFlag;
 
+        auto fetch() -> unsigned short;
+        auto execute(unsigned short opcode) -> void;
+
+        Memory& mem;
+        Renderer& renderer;
     public:
         Cpu(Memory& mem, Renderer& renderer);
         auto cycle() -> void;
