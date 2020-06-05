@@ -7,6 +7,7 @@ class Cpu
     private:
         std::array<unsigned char, 16> registers;
         std::array<unsigned short, 16> stack;
+        std::array<bool, 16> key;
         unsigned short sp;
         unsigned short I;
         unsigned short pc;
