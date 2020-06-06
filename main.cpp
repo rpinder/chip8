@@ -1,18 +1,22 @@
 #include "cpu.hpp"
 
-auto main(int argc, char **argv) -> int
+#include <iostream>
+#include <unistd.h>
+
+auto main(int argc, char* argv[]) -> int
 {
     Memory mem;
-    Renderer renderer;
+    Renderer renderer(mem);
     Cpu cpu(mem, renderer);
 
-    mem.load("game");
+    mem.load(argv[1]);
 
     for(;;) {
        cpu.cycle(); 
-       if (cpu.drawing())
+       if (cpu.drawing() && argc > 2)
            renderer.draw();
        cpu.setKeys();
+       std::getchar();
     }
 
     return 0;
