@@ -6,7 +6,7 @@
 auto main(int argc, char* argv[]) -> int
 {
     Memory mem;
-    Renderer renderer(mem);
+    TerminalRenderer renderer(mem);
     Cpu cpu(mem, renderer);
 
     mem.load(argv[1]);

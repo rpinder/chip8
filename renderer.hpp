@@ -2,9 +2,26 @@
 
 class Renderer
 {
-    private:
-        Memory& mem;
+    friend class TerminalRenderer;
+    friend class SdlRenderer;
     public:
-        Renderer(Memory& mem);
-        auto draw() -> void;
+        Renderer(Memory &mem);
+        virtual void draw() const = 0;
+    private:
+        Memory &mem;
 };
+
+class TerminalRenderer : public Renderer
+{
+    public:
+        void draw() const;
+        TerminalRenderer(Memory &mem);
+};
+
+class SdlRenderer : public Renderer
+{
+    public:
+        void draw() const;
+        SdlRenderer(Memory &mem);
+};
+

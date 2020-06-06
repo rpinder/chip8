@@ -3,10 +3,15 @@
 #include <iostream>
 
 Renderer::Renderer(Memory& mem) 
-: mem(mem)
+    : mem(mem)
 {}
 
-auto Renderer::draw() -> void
+
+TerminalRenderer::TerminalRenderer(Memory &mem)
+    : Renderer(mem)
+{}
+
+auto TerminalRenderer::draw() const -> void
 {
     for (int y = 0; y < 32; y++) {
         for (int x = 0; x < 64; x++) {
@@ -14,4 +19,13 @@ auto Renderer::draw() -> void
         }
         std::cout << std::endl;
     }
+}
+
+SdlRenderer::SdlRenderer(Memory &mem)
+    : Renderer(mem)
+{}
+
+auto SdlRenderer::draw() const -> void
+{
+
 }
