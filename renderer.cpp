@@ -22,7 +22,7 @@ auto TerminalRenderer::draw() const -> void
 }
 
 SdlRenderer::SdlRenderer(Memory &mem, const int scale)
-    : Renderer(mem), SCALE(scale)
+    : Renderer(mem)
 {
     window = SDL_CreateWindow("CHIP-8", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 64 * SCALE, 32 * SCALE, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);

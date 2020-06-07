@@ -28,6 +28,5 @@ class SdlRenderer : public Renderer
     private:
         SDL_Window* window;
         SDL_Renderer* renderer;
-        const int SCALE;
 };
 
