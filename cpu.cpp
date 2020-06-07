@@ -20,7 +20,7 @@ Cpu::Cpu(Memory& mem, Renderer& renderer)
 
 auto Cpu::cycle() -> void
 {
-    //drawFlag = false;
+    drawFlag = false;
     std::cout << "[";
     for (const auto& r : registers) {
         std::cout << std:: hex << (int) r << ", ";
