@@ -31,8 +31,13 @@ auto handle_events(SDL_Event& event, unsigned char keymap[16], std::array<bool, 
 
 auto main(int argc, char* argv[]) -> int
 {
+    if (argc < 2) {
+        std::cout << "Enter rom as second argument" << std::endl;
+        exit(1);
+    }
+
     if ( SDL_Init(SDL_INIT_EVERYTHING) < 0 ) {
-        printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
+        std::cerr << "SDL could not initialize: " << SDL_GetError() << std::endl; 
         exit(1);
     }
 

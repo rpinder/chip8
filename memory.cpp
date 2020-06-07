@@ -36,9 +36,17 @@ Memory::Memory()
 auto Memory::load(std::string title) -> void
 {
     std::ifstream myfile(title, std::ios::binary);
-    std::istreambuf_iterator<char> it(myfile);
-    std::istreambuf_iterator<char> eof;
-    for (int i = 512; it != eof; ++i, ++it) {
-       data[i] = *it; 
+    if (myfile.is_open()) {
+        
+        std::istreambuf_iterator<char> it(myfile);
+        std::istreambuf_iterator<char> eof;
+        for (int i = 512; it != eof; ++i, ++it) {
+            data[i] = *it; 
+        }
+        myfile.close();
+    } else {
+        std::cerr << "Unable to open rom" << std::endl;
+        exit(1);
     }
+    
 }
