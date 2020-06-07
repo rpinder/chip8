@@ -14,9 +14,14 @@ auto handle_events(SDL_Event& event, unsigned char keymap[16], std::array<bool, 
             exit(0);
             break;
         case SDL_KEYDOWN:
-            for (int i = 0; i < 16; i++)
-                if (event.key.keysym.sym == keymap[i])
-                    keys[i] = true;
+            {
+                if (event.key.keysym.sym == SDLK_ESCAPE)
+                    exit(1);
+
+                for (int i = 0; i < 16; i++)
+                    if (event.key.keysym.sym == keymap[i])
+                        keys[i] = true;
+            }
             break;
         case SDL_KEYUP:
             for (int i = 0; i < 16; i++)
