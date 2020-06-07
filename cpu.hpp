@@ -1,6 +1,8 @@
-#include <array>
 #include "memory.hpp"
 #include "renderer.hpp"
+#include "util.hpp"
+
+#include <array>
 
 class Cpu
 {
@@ -21,6 +23,8 @@ class Cpu
 
         Memory& mem;
         Renderer& renderer;
+
+    util::Random rand;
     public:
         Cpu(Memory& mem, Renderer& renderer);
         auto cycle() -> void;

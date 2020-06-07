@@ -1,10 +1,10 @@
 #include "cpu.hpp"
-#include "util.hpp"
 
 #include <iostream>
+#include <unistd.h>
 
 Cpu::Cpu(Memory& mem, Renderer& renderer)
-    : mem(mem), renderer(renderer)
+    : mem(mem), renderer(renderer), rand(util::Random(0, 255))
 {
     pc = 0x200;
     I = 0;
@@ -16,6 +16,7 @@ Cpu::Cpu(Memory& mem, Renderer& renderer)
 
     delay_timer = 0;
     sound_timer = 0;
+
 }
 
 auto Cpu::cycle() -> void
@@ -189,7 +190,7 @@ auto Cpu::execute(unsigned short opcode) -> void
             break;
         case 0xC000:
             std::cout << "Cxkk - RND Vx, byte" << std::endl;
-            registers[(opcode & 0x0F00) >> 8] = (opcode & 0x00FF) & ((unsigned char) util::random_int(0, 255));
+            registers[(opcode & 0x0F00) >> 8] = (opcode & 0x00FF) & ((unsigned char) rand());
             pc += 2;
             break;
         case 0xD000:

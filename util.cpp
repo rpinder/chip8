@@ -1,11 +1,11 @@
 #include "util.hpp"
 
-#include <random>
-
-auto util::random_int(int start, int end) -> int
+util::Random::Random(int start, int end)
+    : rng{std::random_device{}()}, dist{start, end}
 {
-    std::random_device dev;
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<int> dist(start, end);
+}
+
+auto util::Random::operator()() -> int
+{
     return dist(rng);
 }
