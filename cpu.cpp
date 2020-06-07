@@ -347,8 +347,3 @@ auto Cpu::drawing() -> bool
 {
     return drawFlag;
 }
-
-auto Cpu::setKeys() -> void
-{
-
-}

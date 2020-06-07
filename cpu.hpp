@@ -29,5 +29,4 @@ class Cpu
     Cpu(Memory& mem, std::array<bool, 16>& key);
         auto cycle() -> void;
         auto drawing() -> bool;
-        auto setKeys() -> void;
 };
