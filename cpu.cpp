@@ -218,7 +218,7 @@ auto Cpu::execute(unsigned short opcode) -> void
                         {
                             if(mem.display[(x + xline + ((y + yline) * 64))] == 1)
                                 registers[0xF] = 1;                                 
-                            mem.display[x + xline + ((y + yline) * 64)] = !mem.display[x + xline + ((y + yline) * 64)] != false;
+                            mem.display[x + xline + ((y + yline) * 64)] = !mem.display[x + xline + ((y + yline) * 64)];
                         }
                     }
                 }
