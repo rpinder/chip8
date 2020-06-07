@@ -24,7 +24,7 @@ auto TerminalRenderer::draw() const -> void
 SdlRenderer::SdlRenderer(Memory &mem, const int scale)
     : Renderer(mem)
 {
-    window = SDL_CreateWindow("CHIP-8", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 64 * SCALE, 32 * SCALE, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("CHIP-8", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 64 * scale, 32 * scale, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     SDL_RenderSetLogicalSize(renderer, 64, 32);
 }
