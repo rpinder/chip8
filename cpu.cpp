@@ -13,6 +13,7 @@ Cpu::Cpu(Memory& mem, std::array<bool, 16>& key)
     std::fill(registers.begin(), registers.end(), 0);
     std::fill(stack.begin(), stack.end(), 0);
 
+    timer_counter = 0;
     delay_timer = 0;
     sound_timer = 0;
 
@@ -26,10 +27,17 @@ auto Cpu::cycle() -> void
         std::cout << std:: hex << (int) r << ", ";
     }
     std::cout << "]" << std::endl;
+
     unsigned short opcode = fetch();
     execute(opcode);
-    sound_timer--;
-    delay_timer--;
+    if (timer_counter % 8 == 0) {
+        if (sound_timer > 0)
+            sound_timer--;
+        if (delay_timer > 0)
+            delay_timer--;
+    }
+
+    timer_counter++;
 }
 
 auto Cpu::fetch() -> unsigned short

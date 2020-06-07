@@ -62,7 +62,6 @@ auto main(int argc, char* argv[]) -> int
 
     SDL_Event event;
 
-
     mem.load(argv[1]);
 
     for (;;) {
@@ -70,8 +69,7 @@ auto main(int argc, char* argv[]) -> int
         cpu.cycle(); 
         if (cpu.drawing())
             renderer.draw();
-        cpu.setKeys();
-        usleep(50);
+        usleep(2000);
     }
 
 

@@ -12,8 +12,10 @@ class Cpu
         unsigned short sp;
         unsigned short I;
         unsigned short pc;
+    int timer_counter;
         unsigned char delay_timer;
         unsigned char sound_timer;
+
         
         bool drawFlag;
 
