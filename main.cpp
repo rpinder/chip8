@@ -1,7 +1,50 @@
 #include "cpu.hpp"
+#include "renderer.hpp"
 
 #include <iostream>
 #include <unistd.h>
+
+unsigned char keymap[16] = {
+        SDLK_x,
+        SDLK_1,
+        SDLK_2,
+        SDLK_3,
+        SDLK_q,
+        SDLK_w,
+        SDLK_e,
+        SDLK_a,
+        SDLK_s,
+        SDLK_d,
+        SDLK_z,
+        SDLK_c,
+        SDLK_4,
+        SDLK_r,
+        SDLK_f,
+        SDLK_v,
+};
+
+auto handle_events(SDL_Event& event, std::array<bool, 16>& keys) -> void
+{
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+        case SDL_QUIT:
+            exit(0);
+            break;
+        case SDL_KEYDOWN:
+            for (int i = 0; i < 16; i++)
+                if (event.key.keysym.sym == keymap[i])
+                    keys[i] = true;
+            break;
+        case SDL_KEYUP:
+            for (int i = 0; i < 16; i++)
+                if (event.key.keysym.sym == keymap[i])
+                    keys[i] = false;
+            break;
+        default:
+            std::cerr << "unhandled SDL event: " <<  event.type << std::endl;
+        }
+    }
+}
 
 auto main(int argc, char* argv[]) -> int
 {
@@ -10,28 +53,28 @@ auto main(int argc, char* argv[]) -> int
         exit(1);
     }
 
+    std::array<bool, 16> keys;
+    std::fill(keys.begin(), keys.end(), false);
+
     Memory mem;
     SdlRenderer renderer(mem, 10);
-    Cpu cpu(mem, renderer);
+    Cpu cpu(mem, keys);
 
-    SDL_Event* event = new SDL_Event();
+    SDL_Event event;
+
 
     mem.load(argv[1]);
 
     for (;;) {
-        while (SDL_PollEvent(event)) {
-            if (event->type == SDL_QUIT) {
-                exit(0);
-            }
-        }
-       cpu.cycle(); 
-       if (cpu.drawing())
-           renderer.draw();
-       cpu.setKeys();
-       usleep(50);
+        handle_events(event, keys); 
+        cpu.cycle(); 
+        if (cpu.drawing())
+            renderer.draw();
+        cpu.setKeys();
+        usleep(50);
     }
 
-    delete event;
 
     return 0;
 }
+

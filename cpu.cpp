@@ -3,8 +3,8 @@
 #include <iostream>
 #include <unistd.h>
 
-Cpu::Cpu(Memory& mem, Renderer& renderer)
-    : mem(mem), renderer(renderer), rand(util::Random(0, 255))
+Cpu::Cpu(Memory& mem, std::array<bool, 16>& key)
+    : mem(mem), key(key), rand(util::Random(0, 255))
 {
     pc = 0x200;
     I = 0;
@@ -12,7 +12,6 @@ Cpu::Cpu(Memory& mem, Renderer& renderer)
 
     std::fill(registers.begin(), registers.end(), 0);
     std::fill(stack.begin(), stack.end(), 0);
-    std::fill(key.begin(), key.end(), 0);
 
     delay_timer = 0;
     sound_timer = 0;

@@ -1,5 +1,4 @@
 #include "memory.hpp"
-#include "renderer.hpp"
 #include "util.hpp"
 
 #include <array>
@@ -9,7 +8,7 @@ class Cpu
     private:
         std::array<unsigned char, 16> registers;
         std::array<unsigned short, 16> stack;
-        std::array<bool, 16> key;
+        std::array<bool, 16>& key;
         unsigned short sp;
         unsigned short I;
         unsigned short pc;
@@ -22,11 +21,10 @@ class Cpu
         auto execute(unsigned short opcode) -> void;
 
         Memory& mem;
-        Renderer& renderer;
 
     util::Random rand;
     public:
-        Cpu(Memory& mem, Renderer& renderer);
+    Cpu(Memory& mem, std::array<bool, 16>& key);
         auto cycle() -> void;
         auto drawing() -> bool;
         auto setKeys() -> void;
