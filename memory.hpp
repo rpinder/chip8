@@ -10,7 +10,7 @@ class Memory
         Memory();
         auto load(std::string title) -> void;
         std::array<unsigned char, 4096> data;
-        std::array<unsigned char, 64 * 32> display;
+        std::array<bool, 64 * 32> display;
 };
 
 #endif

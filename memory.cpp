@@ -26,7 +26,7 @@ unsigned char chip8_fontset[80] =
 Memory::Memory() 
 {
     std::fill(data.begin(), data.end(), 0);
-    std::fill(display.begin(), display.end(), 0);
+    std::fill(display.begin(), display.end(), false);
 
     for (int i = 0; i < 80; ++i)
         data[i] = chip8_fontset[i];

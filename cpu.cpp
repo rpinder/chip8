@@ -202,7 +202,6 @@ auto Cpu::execute(unsigned short opcode) -> void
             break;
         case 0xD000:
             std::cout << "Dxyn - DRW Vx, Vy, nibble" << std::endl;
-            // TODO
             {
                 unsigned short x = registers[(opcode & 0x0F00) >> 8];
                 unsigned short y = registers[(opcode & 0x00F0) >> 4];
@@ -219,7 +218,7 @@ auto Cpu::execute(unsigned short opcode) -> void
                         {
                             if(mem.display[(x + xline + ((y + yline) * 64))] == 1)
                                 registers[0xF] = 1;                                 
-                            mem.display[x + xline + ((y + yline) * 64)] ^= 1;
+                            mem.display[x + xline + ((y + yline) * 64)] = !mem.display[x + xline + ((y + yline) * 64)] != false;
                         }
                     }
                 }
