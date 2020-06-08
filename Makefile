@@ -1,4 +1,4 @@
-CPPFLAGS=-Wall -pedantic -Wextra -Wconversion -std=c++17
+CPPFLAGS=-Wall -pedantic -Wextra -std=c++17
 
 chip8: cpu.o memory.o renderer.o util.o main.cpp
 	g++ $(CPPFLAGS) -o chip8 main.cpp cpu.o memory.o renderer.o util.o -lSDL2

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <unistd.h>
+#include <chrono>
 
 
 
@@ -28,8 +29,6 @@ auto handle_events(SDL_Event& event, unsigned char keymap[16], std::array<bool, 
                 if (event.key.keysym.sym == keymap[i])
                     keys[i] = false;
             break;
-        default:
-            std::cerr << "unhandled SDL event: " <<  event.type << std::endl;
         }
     }
 }
@@ -77,11 +76,16 @@ auto main(int argc, char* argv[]) -> int
     mem.load(argv[1]);
 
     for (;;) {
+        auto start = std::chrono::high_resolution_clock::now();
         handle_events(event, keymap, keys); 
         cpu.cycle(); 
         if (cpu.drawing())
             renderer.draw();
-        usleep(2000);
+        auto end = std::chrono::high_resolution_clock::now();
+        int duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+        int time_sleep = (1000000/540) - duration;
+        if (time_sleep < 0) time_sleep = 0;
+        usleep(time_sleep);
     }
 
 

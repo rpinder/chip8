@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <unistd.h>
+#include <iomanip>
 
 Cpu::Cpu(Memory& mem, std::array<bool, 16>& key)
     : mem(mem), key(key), rand(util::Random(0, 255))
@@ -22,12 +23,6 @@ Cpu::Cpu(Memory& mem, std::array<bool, 16>& key)
 auto Cpu::cycle() -> void
 {
     drawFlag = false;
-    std::cout << "[";
-    for (const auto& r : registers) {
-        std::cout << std:: hex << (int) r << ", ";
-    }
-    std::cout << "]" << std::endl;
-
     unsigned short opcode = fetch();
     execute(opcode);
     if (timer_counter % 8 == 0) {
@@ -48,7 +43,13 @@ auto Cpu::fetch() -> unsigned short
 
 auto Cpu::execute(unsigned short opcode) -> void
 {
-    std::cout << std::hex << opcode << " | " << std::hex << pc << " " << std::hex << I << " " << std::hex << sp << " | ";
+    std::cout << "---------------------------" << std::endl;
+    for (int i = 0; i < 16; i++) {
+        std::cout << 'V' << std::hex << i << ": " << std::setfill('0') << std::setw(2) << std::hex << (int) registers[i] << ' ';
+        if (i == 7)
+            std::cout << '\n';
+    }
+    std::cout << "\nopcode: " << std::hex << opcode << " | PC: " << std::hex << pc << " I: " << std::hex << I << " SP: " << std::hex << sp << " | " ;
     switch (opcode & 0xF000) {
         case 0x0000:
             switch (opcode & 0x000F)
