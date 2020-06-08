@@ -11,24 +11,24 @@ auto handle_events(SDL_Event& event, unsigned char keymap[16], std::array<bool, 
 {
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
-        case SDL_QUIT:
-            exit(0);
-            break;
-        case SDL_KEYDOWN:
-            {
-                if (event.key.keysym.sym == SDLK_ESCAPE)
-                    exit(1);
+            case SDL_QUIT:
+                exit(0);
+                break;
+            case SDL_KEYDOWN:
+                {
+                    if (event.key.keysym.sym == SDLK_ESCAPE)
+                        exit(1);
 
+                    for (int i = 0; i < 16; i++)
+                        if (event.key.keysym.sym == keymap[i])
+                            keys[i] = true;
+                }
+                break;
+            case SDL_KEYUP:
                 for (int i = 0; i < 16; i++)
                     if (event.key.keysym.sym == keymap[i])
-                        keys[i] = true;
-            }
-            break;
-        case SDL_KEYUP:
-            for (int i = 0; i < 16; i++)
-                if (event.key.keysym.sym == keymap[i])
-                    keys[i] = false;
-            break;
+                        keys[i] = false;
+                break;
         }
     }
 }
@@ -46,22 +46,22 @@ auto main(int argc, char* argv[]) -> int
     }
 
     unsigned char keymap[16] = {
-                                SDLK_x,
-                                SDLK_1,
-                                SDLK_2,
-                                SDLK_3,
-                                SDLK_q,
-                                SDLK_w,
-                                SDLK_e,
-                                SDLK_a,
-                                SDLK_s,
-                                SDLK_d,
-                                SDLK_z,
-                                SDLK_c,
-                                SDLK_4,
-                                SDLK_r,
-                                SDLK_f,
-                                SDLK_v,
+        SDLK_x,
+        SDLK_1,
+        SDLK_2,
+        SDLK_3,
+        SDLK_q,
+        SDLK_w,
+        SDLK_e,
+        SDLK_a,
+        SDLK_s,
+        SDLK_d,
+        SDLK_z,
+        SDLK_c,
+        SDLK_4,
+        SDLK_r,
+        SDLK_f,
+        SDLK_v,
     };
 
     std::array<bool, 16> keys;

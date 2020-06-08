@@ -320,7 +320,7 @@ auto Cpu::execute(unsigned short opcode) -> void
                 case 0x0050:
                     std::cout << "Fx55 - LD [I], Vx" << std::endl;
                     for (int i = 0; i < ((opcode & 0x0F00) >> 8); i++) {
-                       mem.data[I + i] = registers[i]; 
+                        mem.data[I + i] = registers[i]; 
                     }
                     pc += 2;
                     break;
@@ -331,7 +331,7 @@ auto Cpu::execute(unsigned short opcode) -> void
                     }
                     I += ((opcode & 0x0F00) >> 8) + 1;
                     pc += 2;
-                   break;
+                    break;
                 default:
                     std::cout << "unknown opcode" << std::endl;
                     break;
