@@ -3,6 +3,8 @@ CHIP-8 is an interpreted programming language, developed by Joseph Weisbecker. I
 
 ![Playing brix and outputting current state](screenshot.png)
 
+
+
 ## Keymap
 
 ```
@@ -16,4 +18,14 @@ Your Keyboard           CHIP-8 Keyboard
   +-+-+-+-+                +-+-+-+-+
   |Z|X|C|V|                |A|0|B|F|
   +-+-+-+-+                +-+-+-+-+
+```
+## Build instructions
+```
+git clone https://github.com/rpinder/chip8
+cd chip8
+make
+```
+## Usage
+```
+./chip8 <rom>
 ```
