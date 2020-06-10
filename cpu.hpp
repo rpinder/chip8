@@ -28,5 +28,6 @@ class Cpu
     public:
         Cpu(Memory& mem, std::array<bool, 16>& key);
         auto cycle() -> void;
-        auto drawing() -> bool;
+        auto should_draw() -> bool;
+        auto should_beep() -> bool;
 };

@@ -343,7 +343,12 @@ auto Cpu::execute(unsigned short opcode) -> void
     }
 }
 
-auto Cpu::drawing() -> bool
+auto Cpu::should_draw() -> bool
 {
     return drawFlag;
+}
+
+auto Cpu::should_beep() -> bool
+{
+    return sound_timer != 0;
 }

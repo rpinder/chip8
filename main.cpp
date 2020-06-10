@@ -75,12 +75,29 @@ auto main(int argc, char* argv[]) -> int
 
     mem.load(argv[1]);
 
+    SDL_AudioSpec wavSpec;
+    Uint32 wavLength;
+    Uint8 *wavBuffer;
+    SDL_LoadWAV("beep.wav", &wavSpec, &wavBuffer, &wavLength);
+    SDL_AudioDeviceID deviceId = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
+
     for (;;) {
         auto start = std::chrono::high_resolution_clock::now();
+
         handle_events(event, keymap, keys); 
+
         cpu.cycle(); 
-        if (cpu.drawing())
+
+        if (cpu.should_draw())
             renderer.draw();
+
+        if (cpu.should_beep()) {
+            SDL_PauseAudioDevice(deviceId, 0);
+            SDL_QueueAudio(deviceId, wavBuffer, wavLength);
+        } else {
+            SDL_PauseAudioDevice(deviceId, 1);
+        }
+
         auto end = std::chrono::high_resolution_clock::now();
         int duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
         int time_sleep = (1000000/540) - duration;
@@ -88,6 +105,9 @@ auto main(int argc, char* argv[]) -> int
         usleep(time_sleep);
     }
 
+    SDL_CloseAudioDevice(deviceId);
+    SDL_FreeWAV(wavBuffer);
+    SDL_Quit();
 
     return 0;
 }
